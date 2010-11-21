@@ -262,7 +262,10 @@ class Nsm_addon_updater_acc
 			log_message('debug', "Cache file has expired. File deleted");
 			return FALSE;
 		}
-
+		
+		// Updater feed could not be fetched
+		if (filesize($filepath) == 0) return FALSE;
+		
 		flock($fp, LOCK_SH);
 		$cache = fread($fp, filesize($filepath));
 		flock($fp, LOCK_UN);
